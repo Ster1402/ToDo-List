@@ -1,18 +1,39 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks/index');
+});
+
+//Lorsque l'on créé une tâche
+Route::post('/task', function (Request $request) {
+
+    //Validation du formulaire
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|max:255',
+    ]);
+
+    /**
+     * On revient à la page d'accueil en cas d'erreur
+     */
+    if($validator->fails()){
+        return redirect('/')
+        ->withErrors($validator)
+        ->withInput();
+    }
+
+    /**
+     * Sinon on poursuit
+     */
+
+
+
+});
+
+//Lorsque l'on supprime une tâche
+Route::delete('/task/{id}', function ($id) {
+
 });
