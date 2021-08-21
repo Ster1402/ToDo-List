@@ -39,5 +39,47 @@
 
     </div>
 
+    <div class="card">
+
+        <div class="card-header">
+            Tâches courantes
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <thead>
+                    Tâches
+                </thead>
+                  <tbody>
+
+                    @foreach ($tasks as $task)
+
+                        <tr>
+                            <td>{{ $task->name }}</td>
+                            <td>
+                                <form action={{ url('task/'.$task->id) }} method="POST">
+
+                                    <Button type="submit" class="btn btn-danger">Supprimer</Button>
+
+                                    {{-- On précise que c'est la Route delete --}}
+
+                                    {{ method_field('DELETE') }}
+                                    {{ csrf_field() }}
+
+                                </form>
+
+                            </td>
+                        </tr>
+
+                    @endforeach
+
+                  </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
 
 @endsection
